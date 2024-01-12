@@ -17,7 +17,7 @@ resource "google_dataplex_datascan" "dq_scan" {
   data_scan_id = "${local.env}-scan"
 
   data {
-    resource = "//bigquery.googleapis.com/projects/${var.source_project}/datasets/${var.source_dataset}/tables/${var.source_table}"
+    resource = "//bigquery.googleapis.com/${google_bigquery_table.id}"
   }
 
   execution_spec {
@@ -38,4 +38,6 @@ resource "google_dataplex_datascan" "dq_scan" {
   }
 
   project = module.project-services.project_id
+
+  depends_on = [google]
 }
