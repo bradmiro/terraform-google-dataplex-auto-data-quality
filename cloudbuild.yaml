@@ -20,7 +20,7 @@ steps:
   args:
   - '-c'
   - |
-      if [ -f "tfbackend/${BRANCH_NAME}.tfbackend"] && -f "tfvars/${BRANCH_NAME}.tfvars"]; then
+      if [ -f "tfbackend/${BRANCH_NAME}.tfbackend"] && [ -f "tfvars/${BRANCH_NAME}.tfvars"]; then
         echo "***********************"
         echo "${BRANCH_NAME}"
         echo "***********************"
