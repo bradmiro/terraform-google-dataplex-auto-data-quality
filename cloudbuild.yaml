@@ -31,7 +31,8 @@ steps:
         if [ ! -f "tfvars/${BRANCH_NAME}.tfvars"]; then
           echo "Missing file 'tfvars/${BRANCH_NAME}.tfvars'
         fi
-        exit 1
+      fi
+      exit 1
 
 # [START tf-init]
 - id: 'tf init'
