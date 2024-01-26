@@ -36,8 +36,8 @@ steps:
         terraform init
       else
         for dir in environments/*/
-        do
-          cd ${dir}
+        do 
+          cd ${dir}   
           env=${dir%*/}
           env=${env#*/}
           echo ""
@@ -47,7 +47,11 @@ steps:
           terraform init || exit 1
           cd ../../
         done
+<<<<<<< HEAD
       fi
+=======
+      fi 
+>>>>>>> ed88843 (adding custom rules logic)
 # [END tf-init]
 
 # [START tf-plan]
@@ -62,18 +66,31 @@ steps:
         terraform plan
       else
         for dir in environments/*/
+<<<<<<< HEAD
         do
           cd ${dir}
           env=${dir%*/}
           env=${env#*/}
           echo ""
           echo "*************** TERRAFORM PLAN ******************"
+=======
+        do 
+          cd ${dir}   
+          env=${dir%*/}
+          env=${env#*/}  
+          echo ""
+          echo "*************** TERRAFOM PLAN ******************"
+>>>>>>> ed88843 (adding custom rules logic)
           echo "******* At environment: ${env} ********"
           echo "*************************************************"
           terraform plan || exit 1
           cd ../../
         done
+<<<<<<< HEAD
       fi
+=======
+      fi 
+>>>>>>> ed88843 (adding custom rules logic)
 # [END tf-plan]
 
 # [START tf-apply]
@@ -84,8 +101,13 @@ steps:
   - '-c'
   - |
       if [ -d "environments/$BRANCH_NAME/" ]; then
+<<<<<<< HEAD
         cd environments/$BRANCH_NAME
         terraform apply -auto-approve
+=======
+        cd environments/$BRANCH_NAME  
+        terraform apply -auto-approve"
+>>>>>>> ed88843 (adding custom rules logic)
       else
         echo "***************************** SKIPPING APPLYING *******************************"
         echo "Branch '$BRANCH_NAME' does not represent an official environment."
