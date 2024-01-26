@@ -25,10 +25,10 @@ steps:
         echo "${BRANCH_NAME}"
         echo "***********************"
       else
-        if [ ! -f "tfbackend/${BRANCH_NAME}.tfbackend"]; then
+        if [ ! -f "tfbackend/${BRANCH_NAME}.tfbackend" ]; then
           echo "Missing file 'tfbackend/${BRANCH_NAME}.tfbackend'
         fi
-        if [ ! -f "tfvars/${BRANCH_NAME}.tfvars"]; then
+        if [ ! -f "tfvars/${BRANCH_NAME}.tfvars" ]; then
           echo "Missing file 'tfvars/${BRANCH_NAME}.tfvars'
         fi
       fi
