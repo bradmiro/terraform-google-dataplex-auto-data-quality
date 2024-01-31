@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,19 +20,9 @@ steps:
   args:
   - '-c'
   - |
-      if [ -f "tfbackend/${BRANCH_NAME}.tfbackend"] && [ -f "tfvars/${BRANCH_NAME}.tfvars"]; then
-        echo "***********************"
-        echo "${BRANCH_NAME}"
-        echo "***********************"
-      else
-        if [ ! -f "tfbackend/${BRANCH_NAME}.tfbackend" ]; then
-          echo "Missing file 'tfbackend/${BRANCH_NAME}.tfbackend'
-        fi
-        if [ ! -f "tfvars/${BRANCH_NAME}.tfvars" ]; then
-          echo "Missing file 'tfvars/${BRANCH_NAME}.tfvars'
-        fi
-      fi
-      exit 1
+      echo "***********************"
+      echo "${BRANCH_NAME}"
+      echo "***********************"
 
 # [START tf-init]
 - id: 'tf init'
@@ -41,16 +31,20 @@ steps:
   args:
   - '-c'
   - |
-      for backend in tfbackend/*
-      do
-        env=${backend##*/}
-        env=${env%%.*}
-        echo ""
-        echo "*************** TERRAFORM INIT ******************"
-        echo "******* At environment: ${env} ********"
-        echo "*************************************************"
-        terraform init --backend-config=${backend} || exit 1
-      done
+      if [ -f "tfbackend/${BRANCH_NAME}.tfbackend" ]; then
+        terraform init --backend-config="tfbackend/${BRANCH_NAME}.tfbackend"
+      else
+        for backend in tfbackend/*
+        do
+          env=${backend##*/}
+          env=${env%%.*}
+          echo ""
+          echo "*************** TERRAFORM INIT ******************"
+          echo "******* At environment: ${env} ********"
+          echo "*************************************************"
+          terraform init --backend-config=${backend} || exit 1
+        done
+      fi
 # [END tf-init]
 
 # [START tf-plan]
@@ -60,16 +54,20 @@ steps:
   args:
   - '-c'
   - |
-      for vars in tfvars/*
-      do
-        env=${tfvars##*/}
-        env=${env%%.*}
-        echo ""
-        echo "*************** TERRAFORM PLAN ******************"
-        echo "******* At environment: ${env} ********"
-        echo "*************************************************"
-        terraform plan -var-file=${vars} || exit 1
-      done
+      if [ -f "tfvars/${BRANCH_NAME}.tfvars" ]; then
+        terraform plan -var-file="tfvars/${BRANCH_NAME}.tfvars"
+      else
+        for vars in tfvars/*
+        do
+          env=${tfvars##*/}
+          env=${env%%.*}
+          echo ""
+          echo "*************** TERRAFORM PLAN ******************"
+          echo "******* At environment: ${env} ********"
+          echo "*************************************************"
+          terraform plan -var-file=${vars} || exit 1
+        done
+      fi
 # [END tf-plan]
 
 # [START tf-apply]
