@@ -14,12 +14,9 @@
 
 module "deploy-prod" {
 <<<<<<< HEAD
+<<<<<<< HEAD
   source                 = "../../modules/deploy"
   project_id             = "PROJECT_ID"
   data_quality_spec_file = "rules/orders.dev.yaml"
   environment            = "prod"
 }
-=======
-  source = "../../modules/deploy"
-}
->>>>>>> 02025dc (fixes)
