@@ -13,8 +13,13 @@
 # limitations under the License.
 
 module "deploy-prod" {
+<<<<<<< HEAD
   source                 = "../../modules/deploy"
   project_id             = "PROJECT_ID"
   data_quality_spec_file = "rules/orders.dev.yaml"
   environment            = "prod"
 }
+=======
+  source = "../../modules/deploy"
+}
+>>>>>>> 02025dc (fixes)
