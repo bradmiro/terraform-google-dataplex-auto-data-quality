@@ -14,6 +14,6 @@
 
 terraform {
   backend "gcs" {
-    bucket = "PROD-BUCKET"
+    bucket = "dataplex-test-416223-tfstate-prod"
   }
 }
